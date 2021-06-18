@@ -1,0 +1,7 @@
+include dash_observable_node/dash_observable_node.min.js
+include dash_observable_node/dash_observable_node.min.js.map
+include dash_observable_node/metadata.json
+include dash_observable_node/package-info.json
+include README.md
+include LICENSE
+include package.json

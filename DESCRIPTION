@@ -1,0 +1,13 @@
+Package: dashObservableNode
+Title: DOM node which triggers Dash callbacks whenever its DOM subtree gets modified. Not limited to modification from other Dash callbacks.
+Version: 0.0.1
+Description: DOM node which triggers Dash callbacks whenever its DOM subtree gets modified. Not limited to modification from other Dash callbacks.
+Depends: R (>= 3.0.2)
+Imports: 
+Suggests: 
+License: MIT + file LICENSE
+URL: https://github.com/cognitedata/dash-observable-node
+BugReports: https://github.com/cognitedata/dash-observable-node/issues
+Encoding: UTF-8
+LazyData: true
+KeepSource: true
