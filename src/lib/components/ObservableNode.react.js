@@ -35,7 +35,6 @@ export default class ObservableNode extends Component {
 
     render() {
         const {id, setProps, children, hidden} = this.props;
-        console.warn(hidden);
         this.setProps = setProps;
         return (
             <div id={id} style={{display: hidden ? "none": "block"}}>{children}</div>
