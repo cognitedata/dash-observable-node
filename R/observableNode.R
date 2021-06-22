@@ -1,8 +1,8 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-observableNode <- function(id=NULL, label=NULL, value=NULL) {
+observableNode <- function(children=NULL, id=NULL, hidden=NULL) {
     
-    props <- list(id=id, label=label, value=value)
+    props <- list(children=children, id=id, hidden=hidden)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -10,7 +10,7 @@ observableNode <- function(id=NULL, label=NULL, value=NULL) {
         props = props,
         type = 'ObservableNode',
         namespace = 'dash_observable_node',
-        propNames = c('id', 'label', 'value'),
+        propNames = c('children', 'id', 'hidden'),
         package = 'dashObservableNode'
         )
 
