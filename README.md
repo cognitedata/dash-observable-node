@@ -83,9 +83,9 @@ DataTable component [does not support this feature][dnd not supported] yet. Ther
 interaction (e.g. keeping track of mouse drag, move, drop, positioning the dragged DOM element during the move, etc). 
 However, Dash makes it difficult to use such solutions in a Dash app.
 
-With `ObservableNode` we can use such libraries by creating a vanilla JS callback in which the  library to updates
-a hidden DOM element with details of a completed drag&drop operation (i.e. initial and final index of the 
-dragged&dropped row). `ObservableNode` can then be used to pick up on this update and rearrange the `DataTable` rows
+With `ObservableNode` we can use such libraries by creating a vanilla JS callback in which the library updates
+a hidden DOM element with details about a completed drag&drop operation (i.e. the initial and final indexes of the 
+drag&dropped row). `ObservableNode` can then be used to pick up on this update and rearrange the `DataTable` rows
 accordingly, using a standard Dash callback.
 
 
