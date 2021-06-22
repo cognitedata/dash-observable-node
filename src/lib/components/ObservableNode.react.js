@@ -2,40 +2,58 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * ExampleComponent is an example component.
- * It takes a property, `label`, and
- * displays it.
- * It renders an input with the property `value`
- * which is editable by the user.
+ * ObservableNode is a DOM element (a div) which creates a MutationObserver for its DOM subtree.
+ * This way it can trigger callbacks when any change in the subtree happens. It is not limited
+ * to changes having to originate in another Dash callback.
+ *
+ * Currently not tested beyond using it as a string storage, so YMMV with an actual DOM subtree.
  */
 export default class ObservableNode extends Component {
-    render() {
-        const {id, label, setProps, value} = this.props;
 
+    startObserving() {
+        if (!this.observer) {
+            this.observer = new MutationObserver(
+                () => {
+                    this.setProps({children: this.getElement().innerHTML});
+                }
+            );
+            this.observer.observe(
+                this.getElement(),
+                {attributes: false, childList: true, subtree: true },
+            )
+        }
+    }
+
+    stopObserving() {
+        this.observer.disconnect();
+        this.observer = null;
+    }
+
+    getElement() {
+        return document.getElementById(this.props.id);
+    }
+
+    render() {
+        const {id, setProps, children, hidden} = this.props;
+        this.setProps = setProps;
         return (
-            <div id={id}>
-                ExampleComponent: {label}&nbsp;
-                <input
-                    value={value}
-                    onChange={
-                        /*
-                         * Send the new value to the parent component.
-                         * setProps is a prop that is automatically supplied
-                         * by dash's front-end ("dash-renderer").
-                         * In a Dash app, this will update the component's
-                         * props and send the data back to the Python Dash
-                         * app server if a callback uses the modified prop as
-                         * Input or State.
-                         */
-                        e => setProps({ value: e.target.value })
-                    }
-                />
-            </div>
+            <div id={id} style={{display: hidden ? "none": "block"}}>{children}</div>
         );
+    }
+
+    componentDidMount() {
+        this.startObserving();
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.stopObserving();
     }
 }
 
-ObservableNode.defaultProps = {};
+ObservableNode.defaultProps = {
+    hidden: true,
+};
 
 ObservableNode.propTypes = {
     /**
@@ -44,14 +62,14 @@ ObservableNode.propTypes = {
     id: PropTypes.string,
 
     /**
-     * A label that will be printed when this component is rendered.
+     * The content of the DOM node.
      */
-    label: PropTypes.string.isRequired,
+    children: PropTypes.string,
 
     /**
-     * The value displayed in the input.
+     * Whether to hide the node (yes by default).
      */
-    value: PropTypes.string,
+    hidden: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes
